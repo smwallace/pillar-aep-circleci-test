@@ -15,16 +15,15 @@ jobs:
       - run:
           name: Create Google Application Credential file
           command: |
-            echo "${GOOGLE_APPLICATION_CREDENTIALS_CONTENT_EMPTY}" > /tmp/key.json
+            echo "${GOOGLE_APPLICATION_CREDENTIALS_CONTENT}" > "${GOOGLE_APPLICATION_CREDENTIALS}"
       - run: echo "${GOOGLE_APPLICATION_CREDENTIALS}"
-      - run: cat /tmp/key.json
-      # - run: cd dialogFlow && npm install
-      # - run: node ./dialogFlow/deployAgent.js
+      - run: cd dialogFlow && npm install
+      - run: node ./dialogFlow/deployAgent.js
       - run:
           name: Delete Google Application Credential file
           when: always
           command: |
-            rm /tmp/key.json
+            rm "${GOOGLE_APPLICATION_CREDENTIALS}"
   # deploy-job:
   #     requires:
   #       - build
