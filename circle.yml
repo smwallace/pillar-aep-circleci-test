@@ -12,6 +12,8 @@ jobs:
       #- run: export GOOGLE_APPLICATION_CREDENTIALS=$CI_DIR/pillar-voice-bc44aa2e8e3b.json
       # - run: cd ../dialogFlow
       # - run: node deployAgent.js
+      - run: echo 'Current directory is'
+      - run: pwd
       - run: ./node_modules/.bin/firebase deploy  --project pillar-voice --token=$FIREBASE_DEPLOY_TOKEN
       - run: cd ..
       - run: node ./dialogFlow/deployAgent.js
