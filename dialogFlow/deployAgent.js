@@ -5,8 +5,8 @@ const outageContexts = require('./contexts/outageContexts.js');
 
 const projectId = 'pillar-voice';
 const projectPath = `projects/${projectId}`;
-
-const emptyAgentFilename = "./empty-agent.zip";
+WORKING_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+const emptyAgentFilename = WORKING_DIR"/empty-agent.zip";
 
 const allIntents = [
     energyTipsIntent,
