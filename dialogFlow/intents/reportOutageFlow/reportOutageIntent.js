@@ -14,7 +14,8 @@ const trainingText = [
     "Powers out",
     "Lights don't work,",
     "Report outage",
-    "Report power outage"
+    "Report power outage",
+    "Somebody help me with my power"
 
 ];
 
