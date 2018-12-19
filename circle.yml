@@ -8,7 +8,7 @@ jobs:
       - run: npm install --save-dev firebase-tools
       - run: ci/deploy.sh
 
-  - deploy-job:
+  deploy-job:
       requires:
         - build-job
       filters:
