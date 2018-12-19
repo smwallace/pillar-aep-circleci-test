@@ -15,9 +15,17 @@ jobs:
       - run: pwd
       - run: ls -al
       - run: cd functions && ./node_modules/.bin/firebase deploy  --project pillar-voice --token=$FIREBASE_DEPLOY_TOKEN
+      - run: cd dialogFlow && npm install
+      - run:
+          name: Create Google Application Credential file
+          command: |
+            echo ${GOOGLE_APPLICATION_CREDENTIALS_CONTENT} > /tmp/key.json
       - run: node ./dialogFlow/deployAgent.js
-
-
+      - run:
+          name: Delete Google Application Credential file
+          when: always
+          command: |
+            rm /tmp/key.json
   # deploy-job:
   #     requires:
   #       - build
