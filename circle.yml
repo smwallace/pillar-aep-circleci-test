@@ -5,13 +5,15 @@ jobs:
       - image: circleci/node:6.11 # the primary container, where your job's commands are run
     steps:
       - checkout # check out the code in the project directory
-      - run: cd functions && npm install
+      - run: cd functions
+      - run: npm install
       # - run: PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
       # - run: CI_DIR=$PROJECT_DIR/ci
       #- run: export GOOGLE_APPLICATION_CREDENTIALS=$CI_DIR/pillar-voice-bc44aa2e8e3b.json
       # - run: cd ../dialogFlow
       # - run: node deployAgent.js
-      - run: ./functions/node_modules/.bin/firebase deploy  --project pillar-voice --token=$FIREBASE_DEPLOY_TOKEN
+      - run: ./node_modules/.bin/firebase deploy  --project pillar-voice --token=$FIREBASE_DEPLOY_TOKEN
+      - run: cd ..
       - run: node ./dialogFlow/deployAgent.js
 
 
