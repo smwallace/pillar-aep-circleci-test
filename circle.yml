@@ -1,4 +1,15 @@
 version: 2
+deploy-job:
+       docker:
+         - image: circleci/node:4.8.2 
+       working_directory: /tmp/pillar-aep-circleci-test
+       steps:
+         - run:
+             name: Deploy Master to Firebase
+             command: ./functions/node_modules/.bin/firebase deploy  --project pillar-voice --token=$FIREBASE_DEPLOY_TOKEN
+         - run:
+             name: Deploy Master to DialogFlow
+             command: node ./dialogFlow/deployAgent.js
 jobs:
   build:
     docker: # use the docker executor type; machine and macos executors are also supported
@@ -6,4 +17,16 @@ jobs:
     steps:
       - checkout # check out the code in the project directory
       - run: npm install --save-dev firebase-tools
-      - run: ci/deploy.sh
+      - run: cd functions && npm install
+      # - run: PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
+      # - run: CI_DIR=$PROJECT_DIR/ci
+      #- run: export GOOGLE_APPLICATION_CREDENTIALS=$CI_DIR/pillar-voice-bc44aa2e8e3b.json
+      # - run: cd ../dialogFlow
+      # - run: node deployAgent.js
+
+  deploy-job:
+      requires:
+        - build
+      filters:
+        branches:
+          only: master
