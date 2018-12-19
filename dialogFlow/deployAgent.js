@@ -7,8 +7,6 @@ const projectId = 'pillar-voice';
 const projectPath = `projects/${projectId}`;
 const emptyAgentFilename = __dirname+'/empty-agent.zip';
 
-console.log(`looking for empty agent at ${emptyAgentFilename}`);
-
 const allIntents = [
     energyTipsIntent,
     reportOutageIntent

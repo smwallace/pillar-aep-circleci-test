@@ -20,7 +20,8 @@ jobs:
           name: Create Google Application Credential file
           command: |
             echo ${GOOGLE_APPLICATION_CREDENTIALS_CONTENT} > /tmp/key.json
-      - run: export GOOGLE_APPLICATION_CREDENTIALS=/tmp/key.json
+      - run: export GOOGLE_APPLICATION_CREDENTIALS=/tmp/key.json 
+      - run: echo $GOOGLE_APPLICATION_CREDENTIALS
       - run: node ./dialogFlow/deployAgent.js
       - run:
           name: Delete Google Application Credential file
