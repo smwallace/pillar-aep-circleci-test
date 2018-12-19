@@ -11,12 +11,8 @@ jobs:
       #- run: export GOOGLE_APPLICATION_CREDENTIALS=$CI_DIR/pillar-voice-bc44aa2e8e3b.json
       # - run: cd ../dialogFlow
       # - run: node deployAgent.js
-      - run:
-        name: Deploy Master to Firebase
-        command: ./functions/node_modules/.bin/firebase deploy  --project pillar-voice --token=$FIREBASE_DEPLOY_TOKEN
-      - run:
-        name: Deploy Master to DialogFlow
-        command: node ./dialogFlow/deployAgent.js
+      - run: ./functions/node_modules/.bin/firebase deploy  --project pillar-voice --token=$FIREBASE_DEPLOY_TOKEN
+      - run: node ./dialogFlow/deployAgent.js
 
 
   # deploy-job:
