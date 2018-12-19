@@ -5,7 +5,6 @@ jobs:
       - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
     steps:
       - checkout # check out the code in the project directory
-      - run: npm install --save-dev firebase-tools^6.1.1
       - run: cd functions && npm install
       # - run: PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
       # - run: CI_DIR=$PROJECT_DIR/ci
