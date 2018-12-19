@@ -1,42 +1,26 @@
 version: 2
 jobs:
   build:
-    docker: # use the docker executor type; machine and macos executors are also supported
+    docker: # use the docker executor type
       - image: circleci/node:latest # the primary container, where your job's commands are run
     steps:
       - checkout # check out the code in the project directory
-      # - run: cd functions && npm install
-      # - run: PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
-      # - run: CI_DIR=$PROJECT_DIR/ci
-      #- run: export GOOGLE_APPLICATION_CREDENTIALS=$CI_DIR/pillar-voice-bc44aa2e8e3b.json
-      # - run: cd ../dialogFlow
-      # - run: node deployAgent.js
-      # - run: cd functions && ./node_modules/.bin/firebase deploy  --project pillar-voice --token=$FIREBASE_DEPLOY_TOKEN
+      - run: 
+          name: Install functions dependencies
+          command: cd functions && npm install
+      - run: 
+          name: Deploy functions
+          command: cd functions && ./node_modules/.bin/firebase deploy  --project pillar-voice --token=$FIREBASE_DEPLOY_TOKEN
       - run:
           name: Create Google Application Credential file
-          command: |
-            echo "${GOOGLE_APPLICATION_CREDENTIALS_CONTENT}" > "${GOOGLE_APPLICATION_CREDENTIALS}"
-      - run: echo "${GOOGLE_APPLICATION_CREDENTIALS}"
-      - run: cd dialogFlow && npm install
-      - run: node ./dialogFlow/deployAgent.js
+          command: echo "${GOOGLE_APPLICATION_CREDENTIALS_CONTENT}" > "${GOOGLE_APPLICATION_CREDENTIALS}"
+      - run: 
+          name: Install dialogFlow dependencies
+          command: cd dialogFlow && npm install
+      - run: 
+          name: Deploy dialogFlow
+          command: node ./dialogFlow/deployAgent.js
       - run:
           name: Delete Google Application Credential file
           when: always
-          command: |
-            rm "${GOOGLE_APPLICATION_CREDENTIALS}"
-  # deploy-job:
-  #     requires:
-  #       - build
-  #     filters:
-  #       branches:
-  #         only: master
-  #     docker:
-  #        - image: circleci/node:4.8.2 
-  #     working_directory: /tmp/pillar-aep-circleci-test
-  #     steps:
-  #       - run:
-  #         name: Deploy Master to Firebase
-  #         command: ./functions/node_modules/.bin/firebase deploy  --project pillar-voice --token=$FIREBASE_DEPLOY_TOKEN
-  #       - run:
-  #         name: Deploy Master to DialogFlow
-  #         command: node ./dialogFlow/deployAgent.js
+          command: rm "${GOOGLE_APPLICATION_CREDENTIALS}"
