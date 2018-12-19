@@ -16,6 +16,7 @@ jobs:
           name: Create Google Application Credential file
           command: |
             echo "${GOOGLE_APPLICATION_CREDENTIALS_CONTENT_EMPTY}" > /tmp/key.json
+      - run: echo "${GOOGLE_APPLICATION_CREDENTIALS}"
       - run: cat /tmp/key.json
       # - run: cd dialogFlow && npm install
       # - run: node ./dialogFlow/deployAgent.js
